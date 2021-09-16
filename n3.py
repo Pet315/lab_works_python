@@ -3,8 +3,7 @@ signs = {'+', '-'}
 
 def res(i):
     if ((us_in[i] in signs and us_in[i+1] in signs) or
-        (us_in[i] not in numbers and us_in[i] not in signs) or
-        (us_in[i] == '0' and us_in[i+1] in numbers)):
+        (us_in[i] not in numbers and us_in[i] not in signs)):
         return False, None
     if i == len(us_in)-2:
         if us_in[i+1] not in signs and us_in[i+1] not in numbers:
