@@ -1,5 +1,5 @@
-numbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
-signs = {'-', '+'}
+numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+signs = ['-', '+']
 
 def res(i):
     if ((us_in[i] in signs and us_in[i+1] in signs) 
@@ -16,7 +16,7 @@ def res(i):
     return res(i+1)
 
 us_in = str(input("us_in: "))
-if (us_in[0] in signs) or (us_in[len(us_in) - 1] in signs) or (us_in == ""):
+if (us_in == "") or (us_in[0] in signs) or (us_in[len(us_in) - 1] in signs):
 # ''
     print((False, None))
     exit(1)
