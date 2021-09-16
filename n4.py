@@ -18,4 +18,4 @@ for i in range(len(par1) + 1):
         else:
             par2[i][j] = par2[i-1][j]
             
-print("Maximum weight of gold:", par2[len(par1)][args.capacity], "bars.")
+print("The largest possible weight:", par2[len(par1)][args.capacity], "bars.")
