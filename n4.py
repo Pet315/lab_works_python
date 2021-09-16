@@ -1,20 +1,21 @@
 import argparse
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description='Task #4')
 parser.add_argument("capacity", type=int)
-parser.add_argument("weight", type=int, nargs = '*')
+parser.add_argument("weights", type=int, nargs = '*')
 args = parser.parse_args()
-gold = [int(baggage) for baggage in args.weight]
 
-length = len(gold)
-two_dim_arr = [[0 for b in range(args.capacity + 1)] for a in range(length + 1)]
-for a in range(length + 1):
-      for b in range(args.capacity + 1):
-            if a == 0 or b == 0:
-                  two_dim_arr[a][b] = 0
-            elif gold[a - 1] <= b:
-                  two_dim_arr[a][b] = max(gold[a - 1] + two_dim_arr[a - 1][b - gold[a - 1]], 
-                  two_dim_arr[a - 1][b])
-            else:
-                  two_dim_arr[a][b] = two_dim_arr[a - 1][b]
-print("The largest number:", two_dim_arr[len(gold)][args.capacity], "bars.")
+par1 = [int(bar) for bar in args.weights]
+par2 = [[0 for j in range(args.capacity + 1)] for i in range(len(par1) + 1)]
+
+for i in range(len(par1) + 1):
+    for j in range(args.capacity + 1):
+        if i == 0 or j == 0:
+            par2[i][j] = 0
+        elif par1[i-1] <= j:
+            par2[i][j] = max(par1[i-1] + par2[i-1][j - par1[i-1]], 
+            par2[i-1][j])
+        else:
+            par2[i][j] = par2[i-1][j]
+            
+print("Maximum weight of gold:", par2[len(par1)][args.capacity], "bars.")
