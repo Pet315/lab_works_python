@@ -2,9 +2,12 @@ import argparse
 import operator
 
 parser = argparse.ArgumentParser(description='Task #2')
-parser.add_argument("x", type=str, nargs='*')
+parser.add_argument('x', type=str)
+parser.add_argument('y', type=int)
+parser.add_argument('z', type=int)
 args = parser.parse_args()
     
-y = eval("operator." + args.x[0])(int(args.x[1]), int(args.x[2]))
-# add 1 2 => (func_name)(numb_1, numb_2)
-print(y)
+try:
+    print(eval("operator." + args.x)(args.y, args.z))
+except:
+    print("Error.")
