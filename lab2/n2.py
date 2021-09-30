@@ -1,7 +1,6 @@
 import math
 class Rational:
 	"""Class Rational"""
-	index = 0
 	def __init__(self, num=4, den=16):
 		try:
 			isinstance(num, int)
