@@ -9,7 +9,7 @@ class Rational:
 		self.num = a
 		self.den = b
 		return str(int(self.num))+'/'+str(int(self.den))
-	def func2(self):
+	def func2(self, a, b):
 		self.num = a
 		self.den = b
 		return self.num/self.den
