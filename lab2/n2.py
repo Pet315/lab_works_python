@@ -8,12 +8,11 @@ class Rational:
 	def func1(self, a, b):
 		self.num = a
 		self.den = b
-		return str(int(self.num))+'/'+str(int(self.den))
+		return str(self.num)+' / '+str(self.den)
 	def func2(self, a, b):
 		self.num = a
 		self.den = b
 		return self.num/self.den
 
 x = Rational()
-print(x.func1(1,2))
-print(x.func2(1,2))
+print(x.func1(1,2), x.func2(1,2), sep="\n")
