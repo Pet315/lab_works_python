@@ -69,20 +69,20 @@ class Student:
 class Group:
     """Class Group"""
 
-    def __init__(self, st_group):
+        def __init__(self, st_group):
         if not all([isinstance(person, Student) for person in st_group]):
             raise TypeError("Error 5")
         if len(st_group) > 20:
             raise ValueError("Error 6")
         self.info = []
-        if not all([self.check(person) for person in st_group]):
+        if not all([self.process(person) for person in st_group]):
             raise ValueError("Error 7")
         self.st_group = st_group
 
     def add(self, person):
         if not isinstance(person, Student):
             raise TypeError("Error 7")
-        if not self.check(person):
+        if not self.process(person):
             raise ValueError
         self.st_group.append(person)
 
@@ -91,7 +91,7 @@ class Group:
             raise TypeError("Error 8")
         self.st_group.remove(person)
 
-    def check(self, person):
+    def process(self, person):
         pr = person.surname + person.name
         if pr in self.info:
             return False
