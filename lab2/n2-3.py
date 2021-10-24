@@ -51,9 +51,9 @@ class Student:
     def marks(self, value):
         for mr in value:
             if not isinstance(mr, (int, float)):
-                raise TypeError("Error 2")
+                raise TypeError("Error 5")
             if mr < 0 or mr > 15:
-                raise ValueError("Error 3")
+                raise ValueError("Error 6")
         self.__marks = list(value)
 
     def average(self):
@@ -69,26 +69,26 @@ class Student:
 class Group:
     """Class Group"""
 
-        def __init__(self, st_group):
+    def __init__(self, st_group):
         if not all([isinstance(person, Student) for person in st_group]):
-            raise TypeError("Error 5")
-        if len(st_group) > 20:
-            raise ValueError("Error 6")
+            raise TypeError("Error 7")
+        if len(st_group) < 0 or len(st_group) > 20:
+            raise ValueError("Error 8")
         self.info = []
         if not all([self.process(person) for person in st_group]):
-            raise ValueError("Error 7")
+            raise ValueError("Error 9")
         self.st_group = st_group
 
     def add(self, person):
         if not isinstance(person, Student):
-            raise TypeError("Error 7")
+            raise TypeError("Error 10")
         if not self.process(person):
-            raise ValueError
+            raise ValueError("Error 11")
         self.st_group.append(person)
 
     def delete(self, person):
         if not isinstance(person, Student):
-            raise TypeError("Error 8")
+            raise TypeError("Error 12")
         self.st_group.remove(person)
 
     def process(self, person):
