@@ -23,14 +23,54 @@ data1 = [
         "value": 160
     },
     {
+        "day": "Wednesday",
+        "pizza_name": "Marinara",
+        "squad": "Tomato sauce, garlic, basil",
+        "possible_extra_ingredients": ["pesto", "oregano", "capers", "pepper"],
+        "ingredients_will_be_added": [],
+        "possible_drinks": ["cola", "fanta", "sprite"],
+        "selected_drink": '',
+        "value": 200
+    },
+    {
+        "day": "Thursday",
+        "pizza_name": "Four seasons",
+        "squad": "Tomato sauce, mozzarella, mushrooms",
+        "possible_extra_ingredients": ["ham", "artichokes", "olives"],
+        "ingredients_will_be_added": [],
+        "possible_drinks": ["cola", "fanta", "sprite"],
+        "selected_drink": '',
+        "value": 370
+    },
+    {
         "day": "Friday",
+        "pizza_name": "Napoletana",
+        "squad": "Tomato sauce, mozzarella, oregano, anchovies",
+        "possible_extra_ingredients": ["olives", "capers", "zucchini", "eggplant", "pepper"],
+        "ingredients_will_be_added": [],
+        "possible_drinks": ["cola", "fanta", "sprite"],
+        "selected_drink": '',
+        "value": 559
+    },
+    {
+        "day": "Saturday",
         "pizza_name": "Vegetariana",
         "squad": "Tomato sauce, mozzarella, basil",
         "possible_extra_ingredients": ["olives", "capers", "zucchini", "eggplant", "pepper"],
         "ingredients_will_be_added": [],
         "possible_drinks": ["cola", "fanta", "sprite"],
         "selected_drink": '',
-        "value": 55
+        "value": 455
+    },
+    {
+        "day": "Sunday",
+        "pizza_name": "Fattoria",
+        "squad": "Tomato sauce, mozzarella, pepper",
+        "possible_extra_ingredients": ["peas", "porchetta", "zucchini"],
+        "ingredients_will_be_added": [],
+        "possible_drinks": ["cola", "fanta", "sprite"],
+        "selected_drink": '',
+        "value": 155
     }
 ]
 with open("data.json", "w") as wrfile:
