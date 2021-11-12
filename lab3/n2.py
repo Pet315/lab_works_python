@@ -93,7 +93,6 @@ class Day:
         for menu1 in menu:
             if menu1["day"] == self.n_day or menu1["pizza_name"] == self.n_day:
                 return menu1
-        raise Exception("There is no pizza-of-the-day for today")
 
 class Order(Day):
     """
