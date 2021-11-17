@@ -241,10 +241,4 @@ try:
 except FileNotFoundError:
             raise FileNotFoundError("Error 7")
 print(dict(data3))
-
-# try:
-#     with open("data.json", "r") as rfile:
-#         data3 = json.load(rfile)
-# except FileNotFoundError:
-#             raise FileNotFoundError("Error 7")
-# print(dict(data3[2]))
+# print(dict(data1[2]))
