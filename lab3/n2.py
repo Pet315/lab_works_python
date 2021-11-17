@@ -1,75 +1,47 @@
 import json
-from datetime import datetime
+import datetime
 
 data1 = [
     {
-        "day": "Monday",
         "pizza_name": "Margaritta",
-        "squad": ["tomato sauce", "mozzarella", "oregano"],
-        "possible_extra_ingredients": ["pineapple", "mushrooms", "ham", "salami"],
-        "ingredients_will_be_added": [],
-        "possible_drinks": ["cola", "fanta", "sprite"],
-        "selected_drink": '',
+        "squad": ['tomato sauce', 'mozzarella', 'oregano'],
+        "possible_extra_ingredients": {"pineapple": 10, "mushrooms": 15, "ham": 20, "salami": 18},
         "value": 100
     },
     {
-        "day": "Tuesday",
         "pizza_name": "Carbonara",
-        "squad": "Tomato sauce, mozzarella, parmesan, eggs, bacon",
-        "possible_extra_ingredients": ["pesto", "olives", "capers"],
-        "ingredients_will_be_added": [],
-        "possible_drinks": ["cola", "fanta", "sprite"],
-        "selected_drink": '',
+        "squad": ['tomato sauce', 'mozzarella', 'parmesan', 'eggs', 'bacon'],
+        "possible_extra_ingredients": {"pesto": 32, "olives": 15, "capers": 17},
         "value": 160
     },
     {
-        "day": "Wednesday",
         "pizza_name": "Marinara",
-        "squad": "Tomato sauce, garlic, basil",
-        "possible_extra_ingredients": ["pesto", "oregano", "capers", "pepper"],
-        "ingredients_will_be_added": [],
-        "possible_drinks": ["cola", "fanta", "sprite"],
-        "selected_drink": '',
+        "squad": ['tomato sauce', 'garlic', 'basil'],
+        "possible_extra_ingredients": {"pesto": 32, "oregano": 15, "capers": 17},
         "value": 200
     },
     {
-        "day": "Thursday",
         "pizza_name": "Four seasons",
-        "squad": "Tomato sauce, mozzarella, mushrooms",
-        "possible_extra_ingredients": ["ham", "artichokes", "olives"],
-        "ingredients_will_be_added": [],
-        "possible_drinks": ["cola", "fanta", "sprite"],
-        "selected_drink": '',
+        "squad": ['tomato sauce', 'mozzarella', 'mushrooms'],
+        "possible_extra_ingredients": {"ham": 20, "artichokes": 16, "olives": 15},
         "value": 370
     },
     {
-        "day": "Friday",
         "pizza_name": "Napoletana",
-        "squad": "Tomato sauce, mozzarella, oregano, anchovies",
-        "possible_extra_ingredients": ["olives", "capers", "zucchini", "eggplant", "pepper"],
-        "ingredients_will_be_added": [],
-        "possible_drinks": ["cola", "fanta", "sprite"],
-        "selected_drink": '',
+        "squad": ['tomato sauce', 'mozzarella', 'oregano', 'anchovies'],
+        "possible_extra_ingredients": {"olives": 15, "capers": 17},
         "value": 559
     },
     {
-        "day": "Saturday",
         "pizza_name": "Vegetariana",
-        "squad": "Tomato sauce, mozzarella, basil",
-        "possible_extra_ingredients": ["olives", "capers", "zucchini", "eggplant", "pepper"],
-        "ingredients_will_be_added": [],
-        "possible_drinks": ["cola", "fanta", "sprite"],
-        "selected_drink": '',
+        "squad": ['tomato sauce', 'mozzarella', 'basil'],
+        "possible_extra_ingredients": {"olives": 15, "capers": 17, "zucchini": 22, "eggplant": 5, "pepper": 10},
         "value": 455
     },
     {
-        "day": "Sunday",
         "pizza_name": "Fattoria",
-        "squad": "Tomato sauce, mozzarella, pepper",
-        "possible_extra_ingredients": ["peas", "porchetta", "zucchini"],
-        "ingredients_will_be_added": [],
-        "possible_drinks": ["cola", "fanta", "sprite"],
-        "selected_drink": '',
+        "squad": ['tomato sauce', 'mozzarella', 'pepper'],
+        "possible_extra_ingredients": {"peas": 25, "porchetta": 40, "zucchini": 22},
         "value": 155
     }
 ]
@@ -77,104 +49,186 @@ with open("data.json", "w") as wrfile:
     json.dump(data1, wrfile)
 
 
-class Day:
+class General:
     """
-    Class, that uses information about day to define, which type of pizza is
-    the pizza-of-the-day now
-    """
-
-    def __init__(self, n_day):
-        self.n_day = n_day
-
-    def process(self):
-        with open("data.json", "r") as rfile:
-            data2 = json.load(rfile)
-        menu = list(data2)
-        for menu1 in menu:
-            if menu1["day"] == self.n_day or menu1["pizza_name"] == self.n_day:
-                return menu1
-
-class Order(Day):
-    """
-    Class, where customer is doing an order
+    Class General. You can find there all details, connected with pizza-of-the-day
+    for each day and also there are all checks for class attributes
     """
 
-    def __init__(self, ingredients=[], drink='', day=datetime.today().strftime('%A')):
-        super().__init__(day)
-        self.ingredients = ingredients
-        self.drink = drink
+    def __init__(self, pizza_name, price, squad, person_name, extra_ingr):
+        self.person_name = person_name
+        self.pizza_name = pizza_name
+        self.price = price
+        self.squad = squad
+        self.extra_ingr = extra_ingr
 
     @property
-    def ingredients(self):
-        return self.__ingredients
+    def pizza_name(self):
+        return self.__pizza_name
 
-    @ingredients.setter
-    def ingredients(self, value):
-        for mr in value:
-            if not isinstance(mr, str):
-                raise TypeError("Error 5")
-        if len(value) < 0:
-            raise IndexError("Error 6")
-        self.__ingredients = list(value)
-
-    @property
-    def drink(self):
-        return self.__drink
-
-    @drink.setter
-    def drink(self, value):
+    @pizza_name.setter
+    def pizza_name(self, value):
         if not isinstance(value, str):
-            raise TypeError("Error 3")
-        if not value:
-            raise ValueError("Error 4")
-        self.__drink = value
-
-    def process(self):
-        details = super().process()
-        if len(self.ingredients):
-            for i in range(len(self.ingredients)):
-                for n_ing in details["possible_extra_ingredients"]:
-                    if n_ing == self.ingredients[i]:
-                        details["ingredients_will_be_added"].append(n_ing)
-                        details["value"] = details["value"] + 10
-        if len(self.drink):
-            for n_dr in details["possible_drinks"]:
-                if n_dr == self.drink:
-                    details["selected_drink"] = self.drink
-                    details["value"] = details["value"] + 25
-        return f'PN: {details["pizza_name"]}, EI: {details["ingredients_will_be_added"]}, VL: {details["value"]}, DR: {details["selected_drink"]}'
-
-
-
-
-
-class Order1(Order):
-    """
-    Class, that uses, when customer doesn't want a pizza-of-the-day
-    and wants to make his own order
-    """
-    def __init__(self, pizza, ingredients=[], drink=''):
-        super().__init__(ingredients, drink, pizza)
+            raise TypeError("Error 1")
+        self.__pizza_name = value
 
     @property
-    def pizza(self):
-        return self.__pizza
+    def person_name(self):
+        return self.__person_name
 
-    @pizza.setter
-    def pizza(self, value):
-        for pz in value:
-            if not isinstance(pz, str):
+    @person_name.setter
+    def person_name(self, value):
+        if not isinstance(value, str):
+            raise TypeError("Error 1")
+        self.__person_name = value
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, value):
+        if not isinstance(value, int):
+            raise TypeError("Error 2")
+        if value < 0:
+            raise ValueError("Error 3")
+        self.__price = value
+
+    @property
+    def squad(self):
+        return self.__squad
+
+    @squad.setter
+    def squad(self, value):
+        if not all([isinstance(ingr, str) for ingr in value]):
+            raise TypeError("Error 4")
+        self.__squad = value
+
+    @property
+    def extra_ingr(self):
+        return self.__extra_ingr
+
+    @extra_ingr.setter
+    def extra_ingr(self, dict):
+        for element in dict.values():
+            if not isinstance(element, (int, float)):
                 raise TypeError("Error 5")
-        if len(value) < 0:
-            raise IndexError("Error 6")
-        self.__pizza = list(value)
+        for element in dict.keys():
+            if not isinstance(element, str):
+                raise TypeError("Error 6")
+        self.__extra_ingr = dict
 
 
-print("Press 'stock' to choose pizza-of-the-day or something else to choose another pizza")
-choice = input()
-if choice=='stock':
-    ord = Order(["pineapple", "capers"], "fanta")
-    print(ord.process())
-else:
-    ord = Order1("Carbonara", ["ham", "olives"], "cola")
-    print(ord.process())
+class Pizza1(General):
+
+    def __init__(self, pizza_name, price, squad, person_name, extra_ingr):
+        super().__init__(pizza_name, price, squad, person_name, extra_ingr)
+
+    def __str__(self):
+        return f'Monday: {self.pizza_name}, {self.price}, {self.squad}'
+
+
+class Pizza2(General):
+
+    def __init__(self, pizza_name, price, ingredients, person_name, extra_ingr):
+        super().__init__(pizza_name, price, ingredients, person_name, extra_ingr)
+
+    def __str__(self):
+        return f'Tuesday: {self.pizza_name}, {self.price}, {self.squad}'
+
+
+class Pizza3(General):
+
+    def __init__(self, pizza_name, price, ingredients, person_name, extra_ingr):
+        super().__init__(pizza_name, price, ingredients, person_name, extra_ingr)
+
+    def __str__(self):
+        return f'Wednesday: {self.pizza_name}, {self.price}, {self.squad}'
+
+
+class Pizza4(General):
+
+    def __init__(self, pizza_name, price, squad, person_name, extra_ingr):
+        super().__init__(pizza_name, price, squad, person_name, extra_ingr)
+
+    def __str__(self):
+        return f'Thursday: {self.pizza_name}, {self.price}, {self.squad}'
+
+
+class Pizza5(General):
+
+    def __init__(self, pizza_name, price, squad, person_name, extra_ingr):
+        super().__init__(pizza_name, price, squad, person_name, extra_ingr)
+
+    def __str__(self):
+        return f'Friday: {self.pizza_name}, {self.price}, {self.squad}'
+
+
+class Pizza6(General):
+
+    def __init__(self, pizza_name, price, squad, person_name, extra_ingr):
+        super().__init__(pizza_name, price, squad, person_name, extra_ingr)
+
+    def __str__(self):
+        return f'Saturday: {self.pizza_name}, {self.price}, {self.squad}'
+
+
+class Pizza7(General):
+
+    def __init__(self, pizza_name, price, squad, person_name, extra_ingr):
+        super().__init__(pizza_name, price, squad, person_name, extra_ingr)
+
+    def __str__(self):
+        return f'Sunday: {self.pizza_name}, {self.price}, {self.squad}'
+
+
+class Order:
+    """
+    Class Order. It contains a possibility to add some ingredients to order
+    and saves your order in separate file customer_data.json
+    """
+
+    additives = []
+
+    def __init__(self, pizza=None):
+        if not isinstance(pizza, General):
+            raise TypeError("Wrong type of pizza")
+        self.pizza = pizza
+
+    def new_squad(self):
+        print(self.pizza.extra_ingr)
+        if str(input(f"If you want to add something, enter 'yes': ")) == 'yes':
+            for ingr in self.pizza.extra_ingr:
+                if input(f"If you want to add {ingr}, enter 'add': ") == 'add':
+                    self.additives.append(ingr)
+                    self.pizza.price += self.pizza.extra_ingr[ingr]
+        self.data_saving()
+
+    def data_saving(self):
+        data2 = {
+            "person_name": self.pizza.person_name,
+            "value": self.pizza.price,
+            "main_ingredients": self.pizza.squad,
+            "extra_ingredients": self.additives
+        }
+        with open("customer_data.json", "w") as write_file:
+            json.dump(data2, write_file)
+        return
+
+
+n_day = int(datetime.datetime.today().weekday()) - 1
+with open("data.json", "r") as rfile:
+    data2 = json.load(rfile)
+menu = list(data2)
+for i in range(len(menu)):
+    if i == n_day:
+        menu1 = menu[i]
+days = [Pizza1, Pizza2, Pizza3, Pizza4, Pizza5, Pizza6, Pizza7]
+obj = days[n_day]
+name = str(input(f'What is your name? '))
+res = obj(menu1["pizza_name"], menu1["value"], menu1["squad"], name, menu1["possible_extra_ingredients"])
+order = Order(res)
+order.new_squad()
+with open("customer_data.json", "r") as rfile:
+    data3 = json.load(rfile)
+print(dict(data3))
