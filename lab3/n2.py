@@ -45,8 +45,11 @@ data1 = [
         "value": 155
     }
 ]
-with open("data.json", "w") as wrfile:
-    json.dump(data1, wrfile)
+try:
+    with open("data.json", "w") as wrfile:
+        json.dump(data1, wrfile)
+except FileNotFoundError:
+    raise FileNotFoundError("Error 7")
 
 
 class General:
@@ -188,8 +191,6 @@ class Order:
     and saves your order in separate file customer_data.json
     """
 
-    additives = []
-
     def __init__(self, pizza=None):
         if not isinstance(pizza, General):
             raise TypeError("Wrong type of pizza")
@@ -200,25 +201,29 @@ class Order:
         if str(input(f"If you want to add something, enter 'yes': ")) == 'yes':
             for ingr in self.pizza.extra_ingr:
                 if input(f"If you want to add {ingr}, enter 'add': ") == 'add':
-                    self.additives.append(ingr)
+                    self.pizza.squad.append(ingr)
                     self.pizza.price += self.pizza.extra_ingr[ingr]
-        self.data_saving()
 
     def data_saving(self):
         data2 = {
             "person_name": self.pizza.person_name,
+            "pizza_name": self.pizza.pizza_name,
             "value": self.pizza.price,
-            "main_ingredients": self.pizza.squad,
-            "extra_ingredients": self.additives
+            "squad": self.pizza.squad
         }
-        with open("customer_data.json", "w") as write_file:
-            json.dump(data2, write_file)
-        return
+        try:
+            with open("customer_data.json", "w") as wrfile:
+                json.dump(data2, wrfile)
+        except FileNotFoundError:
+            raise FileNotFoundError("Error 7")
 
 
 n_day = int(datetime.datetime.today().weekday()) - 1
-with open("data.json", "r") as rfile:
-    data2 = json.load(rfile)
+try:
+    with open("data.json", "r") as rfile:
+        data2 = json.load(rfile)
+except FileNotFoundError:
+            raise FileNotFoundError("Error 7")
 menu = list(data2)
 for i in range(len(menu)):
     if i == n_day:
@@ -229,6 +234,17 @@ name = str(input(f'What is your name? '))
 res = obj(menu1["pizza_name"], menu1["value"], menu1["squad"], name, menu1["possible_extra_ingredients"])
 order = Order(res)
 order.new_squad()
-with open("customer_data.json", "r") as rfile:
-    data3 = json.load(rfile)
+order.data_saving()
+try:
+    with open("customer_data.json", "r") as rfile:
+        data3 = json.load(rfile)
+except FileNotFoundError:
+            raise FileNotFoundError("Error 7")
 print(dict(data3))
+
+# try:
+#     with open("data.json", "r") as rfile:
+#         data3 = json.load(rfile)
+# except FileNotFoundError:
+#             raise FileNotFoundError("Error 7")
+# print(dict(data3[2]))
