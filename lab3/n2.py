@@ -188,7 +188,7 @@ class Pizza7(General):
 class Order:
     """
     Class Order. It contains a possibility to add some ingredients to order
-    and saves your order in separate file customer_data.json
+    and save your order in separate file 'customer_data.json'
     """
 
     def __init__(self, pizza=None):
