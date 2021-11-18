@@ -235,6 +235,7 @@ res = obj(menu1["pizza_name"], menu1["value"], menu1["squad"], name, menu1["poss
 a = Order(res)
 a.new_squad()
 a.data_saving()
+
 try:
     with open("customer_data.json", "r") as rfile:
         data3 = json.load(rfile)
