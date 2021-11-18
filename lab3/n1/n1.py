@@ -37,25 +37,10 @@ except FileNotFoundError:
 
 class General:
     def __init__(self, unique_number, price, person_name, event_date):
-        self.all_tickets = {}
         self.unique_number = unique_number
         self.price = price
         self.person_name = person_name
         self.event_date = event_date
-
-        @property
-        def all_tickets(self):
-            return self.__all_tickets
-
-        @all_tickets.setter
-        def all_tickets(self, dict):
-            for element in dict.values():
-                if not isinstance(element, (int, float, str)):
-                    raise TypeError("Error 9")
-            for element in dict.keys():
-                if not isinstance(element, str):
-                    raise TypeError("Error 9")
-            self.__all_tickets = dict
 
         @property
         def unique_number(self):
@@ -176,11 +161,10 @@ class Order:
                 json.dump(data2, wrfile)
         except FileNotFoundError:
             raise FileNotFoundError("Error 7")
-        self.info.all_tickets = data2
         try:
             with open("tickets_list.json", "r") as rfile:
                 data4 = json.load(rfile)
-                data4.append(self.info.all_tickets)
+                data4.append(data2)
         except FileNotFoundError:
             raise FileNotFoundError("Error 8")
         try:
