@@ -191,25 +191,25 @@ class Order:
     and save your order in separate file 'customer_data.json'
     """
 
-    def __init__(self, pizza=None):
-        if not isinstance(pizza, General):
+    def __init__(self, info=None):
+        if not isinstance(info, General):
             raise TypeError("Wrong type of pizza")
-        self.pizza = pizza
+        self.info = info
 
     def new_squad(self):
-        print(self.pizza.extra_ingr)
+        print(self.info.extra_ingr)
         if str(input(f"If you want to add something, enter 'yes': ")) == 'yes':
-            for ingr in self.pizza.extra_ingr:
+            for ingr in self.info.extra_ingr:
                 if input(f"If you want to add {ingr}, enter 'add': ") == 'add':
-                    self.pizza.squad.append(ingr)
-                    self.pizza.price += self.pizza.extra_ingr[ingr]
+                    self.info.squad.append(ingr)
+                    self.info.price += self.info.extra_ingr[ingr]
 
     def data_saving(self):
         data2 = {
-            "person_name": self.pizza.person_name,
-            "pizza_name": self.pizza.pizza_name,
-            "value": self.pizza.price,
-            "squad": self.pizza.squad
+            "person_name": self.info.person_name,
+            "pizza_name": self.info.pizza_name,
+            "value": self.info.price,
+            "squad": self.info.squad
         }
         try:
             with open("customer_data.json", "w") as wrfile:
@@ -232,9 +232,9 @@ days = [Pizza1, Pizza2, Pizza3, Pizza4, Pizza5, Pizza6, Pizza7]
 obj = days[n_day]
 name = str(input(f'What is your name? '))
 res = obj(menu1["pizza_name"], menu1["value"], menu1["squad"], name, menu1["possible_extra_ingredients"])
-order = Order(res)
-order.new_squad()
-order.data_saving()
+a = Order(res)
+a.new_squad()
+a.data_saving()
 try:
     with open("customer_data.json", "r") as rfile:
         data3 = json.load(rfile)
