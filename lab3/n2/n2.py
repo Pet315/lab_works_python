@@ -226,9 +226,10 @@ n_day = int(datetime.datetime.today().weekday()) - 1
 try:
     with open("data.json", "r") as rfile:
         data2 = json.load(rfile)
+        menu = list(data2)
 except FileNotFoundError:
             raise FileNotFoundError("Error 8")
-menu = list(data2)
+
 for i in range(len(menu)):
     if i == n_day:
         menu1 = menu[i]
