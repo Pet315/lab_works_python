@@ -193,7 +193,7 @@ class Order:
 
     def __init__(self, info=None):
         if not isinstance(info, General):
-            raise TypeError("Wrong type of pizza")
+            raise TypeError("Error 8")
         self.info = info
 
     def new_squad(self):
