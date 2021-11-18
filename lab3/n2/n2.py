@@ -73,6 +73,8 @@ class General:
     def pizza_name(self, value):
         if not isinstance(value, str):
             raise TypeError("Error 1")
+        if not value:
+            raise ValueError("Error 2")
         self.__pizza_name = value
 
     @property
@@ -83,6 +85,8 @@ class General:
     def person_name(self, value):
         if not isinstance(value, str):
             raise TypeError("Error 1")
+        if not value:
+            raise ValueError("Error 2")
         self.__person_name = value
 
     @property
@@ -92,9 +96,9 @@ class General:
     @price.setter
     def price(self, value):
         if not isinstance(value, int):
-            raise TypeError("Error 2")
+            raise TypeError("Error 3")
         if value < 0:
-            raise ValueError("Error 3")
+            raise ValueError("Error 4")
         self.__price = value
 
     @property
@@ -104,7 +108,7 @@ class General:
     @squad.setter
     def squad(self, value):
         if not all([isinstance(ingr, str) for ingr in value]):
-            raise TypeError("Error 4")
+            raise TypeError("Error 5")
         self.__squad = value
 
     @property
@@ -115,10 +119,10 @@ class General:
     def extra_ingr(self, dict):
         for element in dict.values():
             if not isinstance(element, (int, float)):
-                raise TypeError("Error 5")
+                raise TypeError("Error 6")
         for element in dict.keys():
             if not isinstance(element, str):
-                raise TypeError("Error 6")
+                raise TypeError("Error 7")
         self.__extra_ingr = dict
 
 
@@ -193,7 +197,7 @@ class Order:
 
     def __init__(self, info=None):
         if not isinstance(info, General):
-            raise TypeError("Error 8")
+            raise TypeError("Error 9")
         self.info = info
 
     def new_squad(self):
@@ -215,7 +219,7 @@ class Order:
             with open("customer_data.json", "w") as wrfile:
                 json.dump(data2, wrfile)
         except FileNotFoundError:
-            raise FileNotFoundError("Error 7")
+            raise FileNotFoundError("Error 8")
 
 
 n_day = int(datetime.datetime.today().weekday()) - 1
@@ -223,7 +227,7 @@ try:
     with open("data.json", "r") as rfile:
         data2 = json.load(rfile)
 except FileNotFoundError:
-            raise FileNotFoundError("Error 7")
+            raise FileNotFoundError("Error 8")
 menu = list(data2)
 for i in range(len(menu)):
     if i == n_day:
@@ -236,10 +240,11 @@ a = Order(res)
 a.new_squad()
 a.data_saving()
 
+
 try:
     with open("customer_data.json", "r") as rfile:
         data3 = json.load(rfile)
 except FileNotFoundError:
-            raise FileNotFoundError("Error 7")
+            raise FileNotFoundError("Error 8")
 print(dict(data3))
 # print(dict(data1[2]))
