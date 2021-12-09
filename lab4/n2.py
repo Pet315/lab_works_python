@@ -1,6 +1,3 @@
-import data
-
-
 class Good:
     """Class Good"""
 
