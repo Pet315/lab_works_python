@@ -145,7 +145,6 @@ class CourseFactory(ICourseFactory):
         if name_surname not in t_code.c_name:
             t_code.c_name.append(name_surname)
         self.t_add(t_code.t_name, t_code.c_name)
-        self.c_dict = json.load(open("case2.json"))
         try:
             with open('case2.json', 'w') as wrfile:
                 self.c_dict.update({name_surname: dict_of_courses[c_type].__dict__})
