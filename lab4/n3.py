@@ -36,7 +36,7 @@ class ICourseFactory(ABC):
         pass
 
     @abstractmethod
-    def c_add(self, name, teacher, program, type_course):
+    def c_add(self, type_course, name, teacher, program):
         pass
 
 
