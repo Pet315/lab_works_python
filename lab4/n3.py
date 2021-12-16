@@ -1,5 +1,5 @@
-import json
 from abc import ABC, abstractmethod
+import json
 
 
 class ICourse(ABC):
@@ -139,7 +139,7 @@ class CourseFactory(ICourseFactory):
             raise FileNotFoundError("Error 6")
         return Teacher(t_name, c_subjects)
 
-    def c_add(self, name_surname, t_code, program, c_type):
+        def c_add(self, c_type, name_surname, t_code, program):
         types = {'Local': LocalCourse(name_surname, t_code.t_name, program), 'Offsite': OffsiteCourse(name_surname, t_code.t_name, program)}
         if name_surname not in t_code.c_name:
             t_code.c_name.append(name_surname)
@@ -155,8 +155,8 @@ class CourseFactory(ICourseFactory):
 a = CourseFactory()
 x1 = a.t_add('John Smitt', ['Chemistry', 'Biology', 'Physics', 'Math'])
 x2 = a.t_add('Viktor Mitlov', ['Higher mathematics', 'Physics', 'Electrical engineering'])
-y1 = a.c_add('Biology', x1, ['mitosis', 'meiosis', 'virusology', 'zoology'], 'Offsite')
-y2 = a.c_add('Physics', x2, ['mechanics', 'dynamics', 'electrostatics'], 'Local')
+y1 = a.c_add('Offsite', 'Biology', x1, ['mitosis', 'meiosis', 'virusology', 'zoology'])
+y2 = a.c_add('Local', 'Physics', x2, ['mechanics', 'dynamics', 'electrostatics'])
 
 print("Who will teach:")
 for m, n in a.t_dict.items():
