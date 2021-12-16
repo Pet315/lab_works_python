@@ -131,9 +131,9 @@ class CourseFactory(ICourseFactory):
     def t_add(self, t_name, c_subjects):
         if not c_subjects:
             raise ValueError("Error 5")
+        self.t_dict.update({t_name: Teacher(t_name, c_subjects).__dict__})
         try:
             with open('case1.json', 'w') as wrfile:
-                self.t_dict.update({t_name: Teacher(t_name, c_subjects).__dict__})
                 json.dump(self.t_dict, wrfile)
         except FileNotFoundError:
             raise FileNotFoundError("Error 6")
@@ -145,9 +145,9 @@ class CourseFactory(ICourseFactory):
         if name_surname not in t_code.c_name:
             t_code.c_name.append(name_surname)
         self.t_add(t_code.t_name, t_code.c_name)
+        self.c_dict.update({name_surname: dict_of_courses[c_type].__dict__})
         try:
             with open('case2.json', 'w') as wrfile:
-                self.c_dict.update({name_surname: dict_of_courses[c_type].__dict__})
                 json.dump(self.c_dict, wrfile)
         except FileNotFoundError:
             raise FileNotFoundError("Error 6")
@@ -167,3 +167,4 @@ for m, n in a.t_dict.items():
 print("--\nWhat courses are:")
 for m1, n1 in a.c_dict.items():
     print(f'{m1}, {n1}')
+    
