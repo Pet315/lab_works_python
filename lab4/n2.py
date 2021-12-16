@@ -26,7 +26,7 @@ class Good:
     def price(self, value):
         if not isinstance(value, (int, float)):
             raise TypeError("Error 1")
-        if value < 0:
+        if value <= 0:
             raise ValueError("Error 2")
         self.__price = value
 
@@ -38,7 +38,7 @@ class Good:
     def quantity(self, value):
         if not isinstance(value, int):
             raise TypeError("Error 1")
-        if value < 0:
+        if value <= 0:
             raise ValueError("Error 2")
         self.__quantity = value
 
@@ -81,10 +81,10 @@ class Composition:
         return self.__goods
 
     @goods.setter
-    def goods(self, goods):
-        if not all([isinstance(gd, Good) for gd in goods]):
+    def goods(self, values):
+        if not all([isinstance(gd, Good) for gd in values]):
             raise TypeError("Error 6")
-        self.__goods = goods
+        self.__goods = values
 
     def __eq__(self, data):
         if not isinstance(data, str):
@@ -106,16 +106,16 @@ class Composition:
         return all_pr
 
     def __str__(self):
-        basket = []
+        cart = []
         for gd in self.goods:
-            basket.append(str(gd))
-        return str(basket)
+            cart.append(str(gd))
+        return str(cart)
 
 
 x1 = Good('table', 1000, 245)
 x2 = Good('chair', 350, 655)
 x3 = Good('sofa', 20000, 12)
-y1 = Composition([x1, x2, x3])
+y1 = Composition('python')
 print(x1)
 x1 += 17
 print(x1)
