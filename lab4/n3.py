@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-import json
 import mysql.connector
 from DatabaseInfo import DatabaseInfo
 
